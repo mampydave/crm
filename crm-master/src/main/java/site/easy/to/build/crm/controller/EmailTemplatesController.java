@@ -220,36 +220,39 @@ public class EmailTemplatesController {
     private <T> void deleteEmailTemplateAssociatedWithEntity(int templateId, EmailSettings emailSettings, Class<T> tClass)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        Class<?> emailSettingsClass = emailSettings.getClass();
-        List<String> columnNames = DatabaseUtil.getColumnNames(entityManager, tClass);
-        for (String columnName : columnNames) {
-            String getterMethod = StringUtils.replaceCharToCamelCase(columnName, ' ') + "EmailTemplate";
-            getterMethod = "get" + StringUtils.capitalizeFirstLetter(getterMethod);
-            Method emailTemplateGetterMethod = emailSettingsClass.getMethod(getterMethod);
-            EmailTemplate emailTemplate = (EmailTemplate) emailTemplateGetterMethod.invoke(emailSettings);
-            if (emailTemplate == null) {
-                continue;
+        if (emailSettings != null) {
+            Class<?> emailSettingsClass = emailSettings.getClass();
+            List<String> columnNames = DatabaseUtil.getColumnNames(entityManager, tClass);
+            for (String columnName : columnNames) {
+                String getterMethod = StringUtils.replaceCharToCamelCase(columnName, ' ') + "EmailTemplate";
+                getterMethod = "get" + StringUtils.capitalizeFirstLetter(getterMethod);
+                Method emailTemplateGetterMethod = emailSettingsClass.getMethod(getterMethod);
+                EmailTemplate emailTemplate = (EmailTemplate) emailTemplateGetterMethod.invoke(emailSettings);
+                if (emailTemplate == null) {
+                    continue;
+                }
+                if (templateId == emailTemplate.getTemplateId()) {
+                    Boolean checked = false;
+                    String booleanSetterMethodName = StringUtils.replaceCharToCamelCase(columnName, ' ');
+                    booleanSetterMethodName = "set" + StringUtils.capitalizeFirstLetter(booleanSetterMethodName);
+                    Method booleanSetterMethod = emailSettingsClass.getMethod(booleanSetterMethodName, checked.getClass());
+                    booleanSetterMethod.invoke(emailSettings, checked);
+    
+    
+                    String emailTemplateSetterMethodName = StringUtils.replaceCharToCamelCase(columnName, ' ') + "EmailTemplate";
+                    emailTemplateSetterMethodName = "set" + StringUtils.capitalizeFirstLetter(emailTemplateSetterMethodName);
+                    Method setterMethod = emailSettingsClass.getMethod(emailTemplateSetterMethodName, EmailTemplate.class);
+                    setterMethod.invoke(emailSettings, (Object) null);
+                }
             }
-            if (templateId == emailTemplate.getTemplateId()) {
-                Boolean checked = false;
-                String booleanSetterMethodName = StringUtils.replaceCharToCamelCase(columnName, ' ');
-                booleanSetterMethodName = "set" + StringUtils.capitalizeFirstLetter(booleanSetterMethodName);
-                Method booleanSetterMethod = emailSettingsClass.getMethod(booleanSetterMethodName, checked.getClass());
-                booleanSetterMethod.invoke(emailSettings, checked);
-
-
-                String emailTemplateSetterMethodName = StringUtils.replaceCharToCamelCase(columnName, ' ') + "EmailTemplate";
-                emailTemplateSetterMethodName = "set" + StringUtils.capitalizeFirstLetter(emailTemplateSetterMethodName);
-                Method setterMethod = emailSettingsClass.getMethod(emailTemplateSetterMethodName, EmailTemplate.class);
-                setterMethod.invoke(emailSettings, (Object) null);
-            }
+            if (tClass == Contract.class) {
+                contractEmailSettingsService.save((ContractEmailSettings) emailSettings);
+            } else if (tClass == Ticket.class) {
+                ticketEmailSettingsService.save((TicketEmailSettings) emailSettings);
+            } else if (tClass == Lead.class) {
+                leadEmailSettingsService.save((LeadEmailSettings) emailSettings);
+            }            
         }
-        if (tClass == Contract.class) {
-            contractEmailSettingsService.save((ContractEmailSettings) emailSettings);
-        } else if (tClass == Ticket.class) {
-            ticketEmailSettingsService.save((TicketEmailSettings) emailSettings);
-        } else if (tClass == Lead.class) {
-            leadEmailSettingsService.save((LeadEmailSettings) emailSettings);
-        }
+
     }
 }
