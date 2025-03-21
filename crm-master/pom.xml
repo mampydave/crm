@@ -102,9 +102,9 @@
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>5.7.1</version> <!-- Vérifie la dernière version sur Maven Repository -->
-		</dependency>
 
+			<version>5.7.1</version> 
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.http-client/google-http-client-gson -->
 		<dependency>
