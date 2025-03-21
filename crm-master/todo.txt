@@ -1,0 +1,14 @@
+maintien du projet :
+    preparation des environnement 
+    installation du projet : 20mn
+    configuration requise:
+        configuration du base de donnee dans application properties: 20mn
+        google cloud:
+            creation du projet 
+            configuration des api : google drive api,google api,google calendar api
+            identifiant
+            ajout des scopes
+        weather api:
+
+ 
+             
