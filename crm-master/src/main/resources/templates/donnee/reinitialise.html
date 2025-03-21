@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Réinitialisation des données</title>
+    <!-- Inclure les CSS nécessaires -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.dataTables.min.css}">
+    <link th:href="@{/css/login-register-lock.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.toast.css}" rel="stylesheet">
+    <link th:href="@{/css/style.min.css}" rel="stylesheet">
+    <link th:href="@{/css/pages/inbox.css}" rel="stylesheet">
+</head>
+
+<body class="skin-blue fixed-layout">
+    <!-- Préchargeur -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">CRM</p>
+        </div>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <!-- Topbar header -->
+        <div th:insert="~{/general/header.html}"></div>
+
+        <!-- Left Sidebar -->
+        <div th:insert="~{/general/left-sidebar.html}"></div>
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+            <!-- Container Fluid -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div th:insert="~{/general/page-titles.html}"></div>
+
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body" style="display: flex;justify-content: center;">
+                                <h4 class="card-title">Réinitialisation des données</h4>
+                                <p>Cliquez sur le bouton ci-dessous pour réinitialiser toutes les données.</p>
+
+                                <!-- Afficher un message de succès -->
+                                <div th:if="${successMessage != null}" class="alert alert-success">
+                                    <span th:text="${successMessage}"></span>
+                                </div>
+
+                                <!-- Afficher un message d'erreur -->
+                                <div th:if="${errorMessage != null}" class="alert alert-danger">
+                                    <span th:text="${errorMessage}"></span>
+                                </div>
+
+                                <!-- Bouton de réinitialisation avec confirmation -->
+                                <form th:action="@{/data/clean/all}" method="post" onsubmit="return confirmReset()">
+                                    <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="mdi mdi-delete"></i> Réinitialiser toutes les données
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Page Content -->
+            </div>
+            <!-- End Container Fluid -->
+
+            <!-- Right Sidebar -->
+            <div th:insert="~{/general/right-sidebar.html}"></div>
+        </div>
+        <!-- End Page Wrapper -->
+
+        <!-- Footer -->
+        <div th:insert="~{/general/footer.html}"></div>
+    </div>
+    <!-- End Main Wrapper -->
+
+    <!-- Inclure les scripts JavaScript -->
+    <script th:inline="javascript">
+        var home = /*[[${home}]]*/ null;
+    </script>
+    <script th:src="@{/js/library/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/library/popper.min.js}"></script>
+    <script th:src="@{/js/library/bootstrap.min.js}"></script>
+    <script th:src="@{/js/library/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/js/library/waves.js}"></script>
+    <script th:src="@{/js/library/sidebarmenu.js}"></script>
+    <script th:src="@{/js/library/sticky-kit.min.js}"></script>
+    <script th:src="@{/js/library/jquery.sparkline.min.js}"></script>
+    <script th:src="@{/js/library/custom.min.js}"></script>
+    <script th:src="@{/js/library/jquery.toast.js}"></script>
+    <script th:src="@{/js/library/toastr.js}"></script>
+    <script th:src="@{/js/library/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/library/dataTables.responsive.min.js}"></script>
+
+    <script>
+        // Masquer le loader une fois la page chargée
+        $(window).on('load', function() {
+            $('.preloader').fadeOut('slow');
+        });
+
+        // Fonction de confirmation avant réinitialisation
+        function confirmReset() {
+            return confirm("Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.");
+        }
+
+        // Initialiser DataTable
+        $('#config-table').DataTable({
+            responsive: true
+        });
+    </script>
+</body>
+
+</html>
