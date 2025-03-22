@@ -60,6 +60,9 @@ public class Lead {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Depense> depenses;
+    
     public Lead() {
     }
 
@@ -216,6 +219,14 @@ public class Lead {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Depense> getDepenses() {
+        return depenses;
+    }
+
+    public void setDepenses(List<Depense> depenses) {
+        this.depenses = depenses;
     }
 }
 

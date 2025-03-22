@@ -25,4 +25,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     long count();
 
     public List<User> findTopNByOrderByCreatedAtDesc(int limit, Pageable pageable);
+
+    public User findFirstByOrderByIdAsc();
 }
