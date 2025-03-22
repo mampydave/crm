@@ -42,7 +42,9 @@ public class CleanupController {
             );
 
             List<String> tableNames = Arrays.asList(
-                "customer",
+
+                // "customer",
+
                 "trigger_contract"
             );
     

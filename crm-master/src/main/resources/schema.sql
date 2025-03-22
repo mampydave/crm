@@ -505,3 +505,29 @@ CREATE TABLE IF NOT EXISTS `google_drive_file` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+CREATE TABLE IF NOT EXISTS `budget` (
+  `id_budget` int unsigned NOT NULL AUTO_INCREMENT,
+  `amount` DECIMAL(18,2) NOT NULL,
+  `customer_id` int unsigned NOT NULL,
+  PRIMARY KEY (`id_budget`),
+  KEY `fk_budget_customer` (`customer_id`),
+  CONSTRAINT `fk_budget_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `depense` (
+  `id_depense` int unsigned NOT NULL AUTO_INCREMENT,
+  `amount` DECIMAL(18,2) NOT NULL,
+  `lead_id` int unsigned DEFAULT NULL,
+  `ticket_id` int unsigned DEFAULT NULL,
+  `customer_id` int unsigned NOT NULL,
+  PRIMARY KEY (`id_depense`),
+  KEY `fk_depense_lead` (`lead_id`),
+  KEY `fk_depense_ticket` (`ticket_id`),
+  KEY `fk_depense_customer` (`customer_id`),
+  CONSTRAINT `fk_depense_lead` FOREIGN KEY (`lead_id`) REFERENCES `trigger_lead` (`lead_id`),
+  CONSTRAINT `fk_depense_ticket` FOREIGN KEY (`ticket_id`) REFERENCES `trigger_ticket` (`ticket_id`),
+  CONSTRAINT `fk_depense_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
