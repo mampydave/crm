@@ -60,10 +60,8 @@ public class Lead {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-
     @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
     private Depense depense;
-
 
     public Lead() {
     }
@@ -222,7 +220,6 @@ public class Lead {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 
     public Depense getDepense() {
         return depense;
