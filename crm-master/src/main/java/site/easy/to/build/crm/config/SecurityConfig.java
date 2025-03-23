@@ -69,6 +69,9 @@ public class SecurityConfig {
 =======
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/config/**").permitAll()
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/**/manager/**")).hasRole("MANAGER")
                         .requestMatchers("/employee/**").hasAnyRole("MANAGER", "EMPLOYEE")

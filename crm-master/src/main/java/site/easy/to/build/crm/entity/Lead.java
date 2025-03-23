@@ -61,6 +61,12 @@ public class Lead {
     private LocalDateTime createdAt;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Depense depense;
+
+>>>>>>> Stashed changes
 =======
     @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
     private Depense depense;
@@ -235,6 +241,9 @@ public class Lead {
     }
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 

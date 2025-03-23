@@ -49,7 +49,10 @@ public class Ticket {
     private LocalDateTime createdAt;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     @OneToOne(mappedBy = "ticket",cascade = CascadeType.ALL, orphanRemoval = true)
     private Depense depense;
 
