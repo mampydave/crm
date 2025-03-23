@@ -538,9 +538,4 @@ CREATE TABLE IF NOT EXISTS `alerte` (
     `id_alerte` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `pourcentage` DECIMAL(5,2) NOT NULL,
     PRIMARY KEY (`id_alerte`)
-<<<<<<< Updated upstream
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> Stashed changes
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> Stashed changes

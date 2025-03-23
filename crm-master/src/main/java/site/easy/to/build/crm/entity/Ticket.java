@@ -48,16 +48,11 @@ public class Ticket {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
+
     @OneToOne(mappedBy = "ticket",cascade = CascadeType.ALL, orphanRemoval = true)
     private Depense depense;
 
-    
->>>>>>> Stashed changes
+
     public Ticket() {
     }
 
@@ -143,9 +138,6 @@ public class Ticket {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-<<<<<<< Updated upstream
-=======
-
 
 
     public Depense getDepense() {
@@ -155,5 +147,4 @@ public class Ticket {
     public void setDepense(Depense depense) {
         this.depense = depense;
     }
->>>>>>> Stashed changes
 }

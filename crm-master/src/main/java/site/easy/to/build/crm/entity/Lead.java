@@ -60,18 +60,11 @@ public class Lead {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
+
     @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
     private Depense depense;
 
->>>>>>> Stashed changes
-=======
-    @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Depense depense;
 
->>>>>>> Stashed changes
     public Lead() {
     }
 
@@ -229,8 +222,7 @@ public class Lead {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-<<<<<<< Updated upstream
-=======
+
 
     public Depense getDepense() {
         return depense;
@@ -241,10 +233,6 @@ public class Lead {
     }
 
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 
