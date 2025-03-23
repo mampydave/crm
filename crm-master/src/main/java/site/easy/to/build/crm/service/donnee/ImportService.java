@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class ImportService {
 
-    private List<Object> entities = new ArrayList<>(); // Liste pour stocker les entités lues
+    private List<Object> entities = new ArrayList<>();
 
     public <T> List<String> importCsv(MultipartFile file, Class<T> entityClass) {
         List<String> errorMessages = new ArrayList<>();
-        entities.clear(); // Réinitialiser la liste avant chaque import
+        entities.clear();
 
         try (Reader reader = new InputStreamReader(file.getInputStream());
              CSVReader csvReader = new CSVReader(reader)) {
@@ -52,10 +52,10 @@ public class ImportService {
                         } else if (field.getType() == Boolean.class || field.getType() == boolean.class) {
                             field.set(entity, Boolean.parseBoolean(value));
                         }
-                        // Ajouter d'autres types si nécessaire
+
                     }
 
-                    entities.add(entity); // Ajouter l'entité à la liste
+                    entities.add(entity); 
                 } catch (Exception e) {
                     errorMessages.add("Erreur lors de la lecture de la ligne " + lineNumber + ": " + e.getMessage());
                 }

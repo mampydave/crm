@@ -36,13 +36,13 @@ public class Lead {
     @Column(name = "google_drive_folder_id")
     private String googleDriveFolderId;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LeadAction> leadActions;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<File> files;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<GoogleDriveFile> googleDriveFiles;
 
     @ManyToOne
@@ -60,6 +60,12 @@ public class Lead {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+<<<<<<< Updated upstream
+=======
+    @OneToOne(mappedBy = "lead",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Depense depense;
+
+>>>>>>> Stashed changes
     public Lead() {
     }
 
@@ -217,6 +223,19 @@ public class Lead {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+<<<<<<< Updated upstream
+=======
+
+    public Depense getDepense() {
+        return depense;
+    }
+
+    public void setDepense(Depense depense) {
+        this.depense = depense;
+    }
+
+
+>>>>>>> Stashed changes
 }
 
 

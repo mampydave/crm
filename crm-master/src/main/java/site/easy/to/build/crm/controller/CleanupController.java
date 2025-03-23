@@ -29,7 +29,7 @@ public class CleanupController {
 
     @GetMapping("/donnee/reinitialise")
     public String gotoHtmlviewclean(Model model) {
-        return "donnee/reinitialise"; // Renvoie la vue 
+        return "donnee/reinitialise";  
     }
 
     @PostMapping("/all")
@@ -42,7 +42,14 @@ public class CleanupController {
             );
 
             List<String> tableNames = Arrays.asList(
+<<<<<<< Updated upstream
                 "customer",
+=======
+
+                // "customer",
+                "budget",
+
+>>>>>>> Stashed changes
                 "trigger_contract"
             );
     

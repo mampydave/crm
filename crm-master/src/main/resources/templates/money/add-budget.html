@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des budgets</title>
+    <!-- Inclure les CSS nécessaires -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.dataTables.min.css}">
+    <link th:href="@{/css/login-register-lock.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.toast.css}" rel="stylesheet">
+    <link th:href="@{/css/style.min.css}" rel="stylesheet">
+    <link th:href="@{/css/pages/inbox.css}" rel="stylesheet">
+</head>
+
+<body class="skin-blue fixed-layout">
+    <!-- Préchargeur -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">CRM</p>
+        </div>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <!-- Topbar header -->
+        <div th:insert="~{/general/header.html}"></div>
+
+        <!-- Left Sidebar -->
+        <div th:insert="~{/general/left-sidebar.html}"></div>
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+            <!-- Container Fluid -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div th:insert="~{/general/page-titles.html}"></div>
+
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Ajouter un budget</h4>
+
+                                <!-- Afficher un message de succès -->
+                                <div th:if="${successMessage != null}" class="alert alert-success">
+                                    <span th:text="${successMessage}"></span>
+                                </div>
+
+                                <!-- Afficher un message d'erreur -->
+                                <div th:if="${errorMessage != null}" class="alert alert-danger">
+                                    <span th:text="${errorMessage}"></span>
+                                </div>
+
+                                <!-- Formulaire d'ajout de budget -->
+                                <form th:action="@{/budgets/save}" method="post" th:object="${budget}">
+                                    <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                                    <!-- Champ pour le montant (amount) -->
+                                    <label class="m-t-20" for="amount">Montant :</label>
+                                    <div class="input-group">
+                                        <input type="text" id="amount" th:field="*{amount}" class="form-control" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="text-danger font-weight-bold" th:if="${#fields.hasErrors('amount')}"
+                                              th:errors="*{amount}"></span>
+                                    </div>
+
+                                    <!-- Champ pour sélectionner le Customer (customerId) -->
+                                    <label class="m-t-20" for="customerId">Customer :</label>
+                                    <div class="input-group">
+                                        <select name="customerId" id="customerId" class="form-control" th:field="*{customer.customerId}" required>
+                                            <option value="">Sélectionnez un Customer</option>
+                                            <option th:each="customer : ${customers}" th:text="${customer.name}"
+                                                    th:value="${customer.customerId}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="text-danger font-weight-bold" th:if="${#fields.hasErrors('customer.customerId')}"
+                                              th:errors="*{customer.customerId}"></span>
+                                    </div>
+
+                                    <!-- Bouton de soumission -->
+                                    <button type="submit" class="btn btn-primary m-t-20">
+                                        <i class="mdi mdi-content-save"></i> Enregistrer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Page Content -->
+            </div>
+            <!-- End Container Fluid -->
+
+            <!-- Right Sidebar -->
+            <div th:insert="~{/general/right-sidebar.html}"></div>
+        </div>
+        <!-- End Page Wrapper -->
+
+        <!-- Footer -->
+        <div th:insert="~{/general/footer.html}"></div>
+    </div>
+    <!-- End Main Wrapper -->
+
+    <!-- Inclure les scripts JavaScript -->
+    <script th:inline="javascript">
+        var home = /*[[${home}]]*/ null;
+    </script>
+    <script th:src="@{/js/library/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/library/popper.min.js}"></script>
+    <script th:src="@{/js/library/bootstrap.min.js}"></script>
+    <script th:src="@{/js/library/perfect-scrollbar.jquery.min.js}"></script>
+    <script th:src="@{/js/library/waves.js}"></script>
+    <script th:src="@{/js/library/sidebarmenu.js}"></script>
+    <script th:src="@{/js/library/sticky-kit.min.js}"></script>
+    <script th:src="@{/js/library/jquery.sparkline.min.js}"></script>
+    <script th:src="@{/js/library/custom.min.js}"></script>
+    <script th:src="@{/js/library/jquery.toast.js}"></script>
+    <script th:src="@{/js/library/toastr.js}"></script>
+    <script th:src="@{/js/library/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/library/dataTables.responsive.min.js}"></script>
+
+    <script>
+        // Masquer le loader une fois la page chargée
+        $(window).on('load', function() {
+            $('.preloader').fadeOut('slow');
+        });
+
+        // Initialiser DataTable (si vous avez un tableau dans cette page)
+        $('#config-table').DataTable({
+            responsive: true
+        });
+    </script>
+</body>
+
+</html>
