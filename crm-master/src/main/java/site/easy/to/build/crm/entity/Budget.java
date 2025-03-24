@@ -11,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "budget")
 public class Budget {
@@ -19,9 +22,12 @@ public class Budget {
     @Column(name = "id_budget", nullable = false, updatable = false)
     private Integer idBudget;
 
+    @NotNull(message = "Le montant ne peut pas être nul")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Le montant doit être positif")
     @Column(name = "amount", precision = 18, scale = 2)
     private BigDecimal amount;
 
+    @NotNull(message = "customer ne peut pas être nul")
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;

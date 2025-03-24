@@ -49,10 +49,11 @@ public class Ticket {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Depense> depenses;
 
-    
+    @OneToOne(mappedBy = "ticket",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Depense depense;
+
+
     public Ticket() {
     }
 
@@ -139,11 +140,12 @@ public class Ticket {
         this.createdAt = createdAt;
     }
 
-    public List<Depense> getDepenses() {
-        return depenses;
+
+    public Depense getDepense() {
+        return depense;
     }
 
-    public void setDepenses(List<Depense> depenses) {
-        this.depenses = depenses;
+    public void setDepense(Depense depense) {
+        this.depense = depense;
     }
 }

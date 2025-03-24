@@ -1,9 +1,12 @@
 package site.easy.to.build.crm.service.ticket;
 
 import site.easy.to.build.crm.entity.Customer;
+import site.easy.to.build.crm.entity.Lead;
 import site.easy.to.build.crm.entity.Ticket;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 
 public interface TicketService {
     public Ticket findByTicketId(int id);
@@ -33,4 +36,14 @@ public interface TicketService {
     long countByCustomerCustomerId(int customerId);
 
     void deleteAllByCustomer(Customer customer);
+
+    public List<Ticket> getTicketsNotInDepense();
+
+    boolean existsById(Integer id);
+    void deleteById(Integer id);
+    
+    
+    long count();
+
+            
 }

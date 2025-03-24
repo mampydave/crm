@@ -531,3 +531,10 @@ CREATE TABLE IF NOT EXISTS `depense` (
   CONSTRAINT `fk_depense_ticket` FOREIGN KEY (`ticket_id`) REFERENCES `trigger_ticket` (`ticket_id`),
   CONSTRAINT `fk_depense_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `alerte` (
+    `id_alerte` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `pourcentage` DECIMAL(5,2) NOT NULL,
+    PRIMARY KEY (`id_alerte`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

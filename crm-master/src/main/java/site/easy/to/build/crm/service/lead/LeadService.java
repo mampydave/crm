@@ -31,4 +31,9 @@ public interface LeadService {
     List<Lead> getRecentLeadsByEmployee(int employeeId, int limit);
     List<Lead> getRecentCustomerLeads(int customerId, int limit);
     public void deleteAllByCustomer(Customer customer);
+
+    public List<Lead> getLeadsNotInDepense();
+    long count();
+    boolean existsById(Integer id);
+    void deleteById(Integer id);
 }
