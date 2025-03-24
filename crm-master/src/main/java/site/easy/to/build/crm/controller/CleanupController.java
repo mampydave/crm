@@ -42,14 +42,13 @@ public class CleanupController {
             );
 
             List<String> tableNames = Arrays.asList(
-<<<<<<< Updated upstream
-                "customer",
-=======
+
 
                 // "customer",
                 "budget",
 
->>>>>>> Stashed changes
+                // "customer",
+
                 "trigger_contract"
             );
     

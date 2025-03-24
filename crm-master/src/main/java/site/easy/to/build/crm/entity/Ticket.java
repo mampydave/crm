@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.mapping.ToOne;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "trigger_ticket")

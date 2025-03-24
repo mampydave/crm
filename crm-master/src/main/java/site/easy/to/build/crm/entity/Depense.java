@@ -2,7 +2,9 @@ package site.easy.to.build.crm.entity;
 
 import java.math.BigDecimal;
 
+
 import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
