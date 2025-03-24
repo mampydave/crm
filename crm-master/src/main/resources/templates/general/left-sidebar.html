@@ -161,10 +161,25 @@
                         <span class="hide-menu">Interact data</span>
                     </a>
                     <ul th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="collapse">
-                        <li><a th:href="${home + 'data/clean/donnee/reinitialise'}">Cleanup</a></li>
-                        <li><a th:href="${home + 'data/import/donnee/import'}">Import</a></li>
+                        <li><a th:href="${home + 'manager/all-users'}">Cleanup</a></li>
+                        <li><a th:href="${home + 'manager/register-user'}">Import</a></li>
                     </ul>
                 </li>
+
+                <li th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="nav-small-cap">--- Money</li>
+                <li>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="has-arrow waves-effect waves-dark" href="javascript:void(0)">
+                        <i class="fas fa-users"></i>
+                        <span class="hide-menu">Money</span>
+                    </a>
+                    <ul th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="collapse">
+                        <li><a th:href="${home + 'data/clean/donnee/reinitialise'}">Budget</a></li>
+                        <li><a th:href="${home + 'data/import/donnee/import'}">Depenser</a></li>
+                    </ul>
+                </li>
+
+                <li>bonjour</li>
+
             </ul>
             <ul id="sidebarnav" th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">
                 <li class="user-pro">
