@@ -43,7 +43,6 @@ public class CleanupController {
 
             List<String> tableNames = Arrays.asList(
 
-
                 "customer",
                 "alerte",
                 "depense",
