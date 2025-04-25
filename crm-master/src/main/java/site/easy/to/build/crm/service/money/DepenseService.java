@@ -38,7 +38,7 @@ public class DepenseService {
     }
 
     public BigDecimal getSumDepenseOfAllUsers(){
-        return depenseRepository.getSumDepenseOfAllUsers();
+        return depenseRepository.getSumDepenseOfAllUsers() != null ? depenseRepository.getSumDepenseOfAllUsers() : BigDecimal.ZERO;
     }
     public BigDecimal getGlobalSumDepensesOfTicket(){
         BigDecimal somme = depenseRepository.getGlobalSumDepensesOfTicket();
@@ -76,6 +76,15 @@ public class DepenseService {
 
     public boolean existsByLead_LeadId(Integer leadId){
         return depenseRepository.existsByLead_LeadId(leadId);
+    }
+
+    public Depense findDepenseByIdLead(Integer leadid){
+        return depenseRepository.findDepenseByIdLead(leadid);
+
+    }
+    public Depense findDepenseByIdTicket(Integer ticketid){
+        return depenseRepository.findDepenseByIdTicket(ticketid);
+
     }
 }
 

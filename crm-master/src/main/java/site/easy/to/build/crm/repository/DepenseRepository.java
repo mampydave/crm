@@ -44,4 +44,11 @@ public interface DepenseRepository extends JpaRepository<Depense, Integer>{
     boolean existsByTicket_TicketId(Integer ticketId);
 
     boolean existsByLead_LeadId(Integer leadId);
+
+    @Query("SELECT d FROM Depense d WHERE d.ticket.ticketId = :ticketId")
+    Depense findDepenseByIdTicket(@Param("ticketId") Integer ticketId);
+
+    @Query("SELECT d FROM Depense d WHERE d.lead.leadId = :leadId")
+    Depense findDepenseByIdLead(@Param("leadId") Integer leadId);
+
 }

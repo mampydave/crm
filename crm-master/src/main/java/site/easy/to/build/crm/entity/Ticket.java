@@ -31,7 +31,6 @@ public class Ticket {
     @Column(name = "priority")
     @NotBlank(message = "Priority is required")
     @Pattern(regexp = "^(low|medium|high|closed|urgent|critical)$", message = "Invalid priority")
-
     private String priority;
 
     @ManyToOne

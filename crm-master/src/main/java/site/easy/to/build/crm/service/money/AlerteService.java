@@ -22,8 +22,8 @@ public class AlerteService {
 
     public boolean alerteAtteint(double budget,double depense){
         double budgetPourcentage = (budget * getTauxAlerteGlobal()) / 100;
-        // double passebas = budget - budgetPourcentage;
-        if (depense >= budgetPourcentage && depense <= budget) {
+        double passebas = budget - budgetPourcentage;
+        if (depense >= passebas && depense <= budget) {
             return true;
         }
         return false;

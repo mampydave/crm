@@ -9,6 +9,53 @@ maintien du projet :
             identifiant
             ajout des scopes
         weather api:
+            configuration pour avoir l'api key client et s'y connecter 
 
- 
-             
+debug projet et test:
+    test User :
+        creation user : employe , customer : 10mn
+        fonctionnalite recuperation de tous les user : 2mn         
+    customer:
+        fonctionnalite recuperation de tous les customer : 2mn         
+        fonctionnalite recuperation de tous les customer lier a un user : 2mn         
+    ticket :
+        fonctionnalite recuperation de tous les tickets : 2mn         
+        fonctionnalite recuperation des tickets assigned : 2mn
+        fonctionnalite recuperation des tickets created : 2mn
+        fonctionnalite de creation de ticket avec different status [low|medium|high|closed|urgent|critical]: 20mn         
+    lead :
+        fonctionnalite recuperation de tous les leads : 2mn         
+        fonctionnalite recuperation des leads assigned : 2mn
+        fonctionnalite recuperation des leads created : 2mn
+        fonctionnalite de creation de lead avec different status [meeting-to-schedule|scheduled|archived|success|assign-to-sales]: 22mn
+    contracts :
+        fonctionnalite recuperation de tous les contracts : 2mn         
+        fonctionnalite recuperation de tous les contracts lier a un user : 2mn         
+        fonctionnalite de creation de contract : 4mn
+        log entant que customer et regarder les contract assigner:
+            debug erreur dans html : 15mn         
+
+    template : 
+        fonctionnalite recuperation de tous les templates : 2mn         
+        fonctionnalite recuperation de tous les templates lier a un user : 2mn 
+        fonctionnalite de creation de template : 10mn         
+
+ajout fonctionnalite nouveau:
+    fonctionnalite de suppression de donnee :
+        creer Service: CleanService avec methode cleanTable(List<String> tableNames) dedans : 20mn
+        creer controller CleanupController pour une interaction avec html et lier a CleanService : 10mn
+        creer html concue pour la suppression avec un bouton d'interaction et confirme de suppression des donnees: 20mn
+    fonctionnalite de generation de donnees :
+        creer Service: GenerateService avec methode generateTestData() dedans (il genere des customer, budget pour les customer genrer,genere lead et Service, genere depense de lead et depense de ticket par customer): 30mn
+        creer controller GenerateDataController pour une interaction avec html et lier a GenerateService : 10mn
+        creer html concue pour la generation avec un bouton d'interaction et confirme de generation des donnees: 15mn
+
+    fonctionnalite gerer budget:
+        creation entiter Budget(id,amount,Customer) : 6mn
+        creation de repository pour cet entiter : 4mn
+        creation de Service pour ce dernier aussi : 3mn 
+        fonctionnalite dans BudgteService et BudgetRepository :
+            BigDecimal getSumBudgetByIdCustomer(Integer customerId): 5mn
+            BigDecimal getSumBudgetOfALlCustomer(): 5mn
+            List<Budget> findByCustomer_CustomerId(Integer customerId): 5mn
+            BigDecimal findTotalAmountByCustomerId(@Param("customerId") Integer customerId): 5mn

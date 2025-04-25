@@ -2,6 +2,7 @@ package site.easy.to.build.crm.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import site.easy.to.build.crm.entity.Customer;
 import site.easy.to.build.crm.entity.Ticket;
@@ -33,4 +34,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     void deleteAllByCustomer(Customer customer);
 
     long count();
+
+    @Query("SELECT t FROM Ticket t WHERE " +
+       "t.ticketId NOT IN (SELECT d.ticket.ticketId FROM Depense d WHERE d.ticket IS NOT NULL) " +
+       "AND t.customer IS NOT NULL")
+    List<Ticket> findTicketsWithoutDepenses();
 }

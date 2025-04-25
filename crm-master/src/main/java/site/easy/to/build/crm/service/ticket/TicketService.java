@@ -37,13 +37,15 @@ public interface TicketService {
 
     void deleteAllByCustomer(Customer customer);
 
-    public List<Ticket> getTicketsNotInDepense();
 
     boolean existsById(Integer id);
     void deleteById(Integer id);
     
+    void saveAll(List<Ticket> tickets);
     
     long count();
 
-            
+    List<Ticket> findByCustomerCustomerId(int idcustomer);
+    
+    List<Ticket> findTicketsWithoutDepenses();
 }
