@@ -92,6 +92,8 @@
                                             <th>Country</th>
                                             <th>Show Full Details</th>
                                             <th th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">Delete</th>
+                                            <th th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">Duplique</th>
+                                        
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -109,6 +111,14 @@
                                                     </button>
                                                 </form>
                                             </td>
+                                            <td>
+                                                <form th:action="${home + 'data/duplicate/duplicate-customer/' + customer.customerId}" method="post">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="mdi mdi-success"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+
                                         </tr>
                                     </tbody>
                                 </table>

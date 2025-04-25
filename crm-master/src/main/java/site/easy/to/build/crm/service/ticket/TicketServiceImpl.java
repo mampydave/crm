@@ -100,17 +100,9 @@ public class TicketServiceImpl implements TicketService{
     }
     
     @Override
-    public List<Ticket> getTicketsNotInDepense() {
-        List<Ticket> allTickets = ticketRepository.findAll();
-
-        List<Ticket> ticketsInDepense = depenseRepository.findAll().stream()
-                .map(Depense::getTicket)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        return allTickets.stream()
-                .filter(ticket -> !ticketsInDepense.contains(ticket))
-                .collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public List<Ticket> findTicketsWithoutDepenses() {
+        return ticketRepository.findTicketsWithoutDepenses();
     }
 
     @Override
@@ -125,5 +117,15 @@ public class TicketServiceImpl implements TicketService{
     @Transactional
     public void deleteById(Integer id){
         ticketRepository.deleteById(id);
+    }
+    @Override
+    public void saveAll(List<Ticket> tickets){
+        ticketRepository.saveAll(tickets);
+    }
+
+    @Override 
+    public List<Ticket> findByCustomerCustomerId(int idcustomer){
+
+        return ticketRepository.findByCustomerCustomerId(idcustomer);
     }
 }

@@ -36,13 +36,13 @@ public class Lead {
     @Column(name = "google_drive_folder_id")
     private String googleDriveFolderId;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
     private List<LeadAction> leadActions;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
     private List<File> files;
 
-    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL)
     private List<GoogleDriveFile> googleDriveFiles;
 
     @ManyToOne

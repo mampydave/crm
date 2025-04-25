@@ -161,12 +161,12 @@
                         <span class="hide-menu">Interact data</span>
                     </a>
                     <ul th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="collapse">
+                        <li><a th:href="${home + 'data/generate/donnee/generate'}">generer donnee</a></li>
                         <li><a th:href="${home + 'data/clean/donnee/reinitialise'}">Cleanup</a></li>
                         <li><a th:href="${home + 'data/import/donnee/import'}">Import</a></li>
                     </ul>
                 </li>
-<<<<<<< Updated upstream
-=======
+
 
                 <li th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" class="nav-small-cap">--- Money</li>
                 <li>
@@ -180,7 +180,6 @@
                     </ul>
                 </li>
 
->>>>>>> Stashed changes
             </ul>
             <ul id="sidebarnav" th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">
                 <li class="user-pro">

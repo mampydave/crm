@@ -2,7 +2,9 @@ package site.easy.to.build.crm.entity;
 
 import java.math.BigDecimal;
 
+
 import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +40,7 @@ public class Depense {
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")
     private Ticket ticket;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 

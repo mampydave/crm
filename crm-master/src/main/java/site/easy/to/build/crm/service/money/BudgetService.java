@@ -29,10 +29,10 @@ public class BudgetService {
     }
 
     public BigDecimal getBudgetsByCustomerId(Integer customerId) {
-        return budgetRepository.getSumBudgetByIdCustomer(customerId);
+        return budgetRepository.getSumBudgetByIdCustomer(customerId) != null ? budgetRepository.getSumBudgetByIdCustomer(customerId) : BigDecimal.ZERO;
     }
     public BigDecimal getSumBudgetOfAllCustomer() {
-        return budgetRepository.getSumBudgetOfALlCustomer();
+        return budgetRepository.getSumBudgetOfALlCustomer() != null ? budgetRepository.getSumBudgetOfALlCustomer() : BigDecimal.ZERO;
     }
 
 }

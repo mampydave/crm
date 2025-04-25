@@ -48,8 +48,8 @@ public class DepenseController {
             model.addAttribute("depense", new Depense());
         }
 
-        model.addAttribute("leads", leadService.getLeadsNotInDepense());
-        model.addAttribute("tickets", ticketService.getTicketsNotInDepense());
+        model.addAttribute("leads", leadService.findLeadsWithoutDepenses());
+        model.addAttribute("tickets", ticketService.findTicketsWithoutDepenses());
 
         if (success != null && success.equals("true")) {
             model.addAttribute("successMessage", "La dépense a été ajoutée avec succès !");

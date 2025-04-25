@@ -11,6 +11,21 @@
     <link th:href="@{/css/jquery.toast.css}" rel="stylesheet">
     <link th:href="@{/css/style.min.css}" rel="stylesheet">
     <link th:href="@{/css/pages/inbox.css}" rel="stylesheet">
+    <style>
+        .file-card {
+            border: 1px dashed #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .file-card:hover {
+            border-color: #1976d2;
+        }
+        .error-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 
 <body class="skin-blue fixed-layout">
@@ -35,48 +50,78 @@
             <!-- Container Fluid -->
             <div class="container-fluid">
                 <!-- Bread crumb and right sidebar toggle -->
-                <div th:insert="~{/general/page-titles.html}"></div>
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor">Import de données</h4>
+                    </div>
+                </div>
 
                 <!-- Start Page Content -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Import de données</h4>
-                                <!-- <p>Cliquez sur le bouton ci-dessous pour importer des données depuis un fichier.</p> -->
+                                <h4 class="card-title">Import de données groupé</h4>
+                                <p class="card-subtitle">Sélectionnez les 3 fichiers nécessaires pour l'import complet</p>
 
                                 <!-- Afficher un message de succès -->
                                 <div th:if="${successMessage != null}" class="alert alert-success">
-                                    <span th:text="${successMessage}"></span>
+                                    <i class="ti-check"></i> <span th:text="${successMessage}"></span>
                                 </div>
 
-                                <!-- Afficher un message d'erreur -->
-                                <div th:if="${errorMessage != null}" class="alert alert-danger">
-                                    <span th:text="${errorMessage}"></span>
+                                <!-- Afficher les erreurs groupées par fichier -->
+                                <div th:if="${importErrors != null and !importErrors.isEmpty()}" class="alert alert-danger">
+                                    <h5><i class="ti-alert"></i> Erreurs lors de l'import</h5>
+                                    <div th:each="fileEntry : ${importErrors}">
+                                        <h6 class="mt-3" th:text="${fileEntry.key}"></h6>
+                                        <ul class="error-list">
+                                            <li th:each="error : ${fileEntry.value}" th:text="${error}"></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
-                                <!-- Formulaire d'import -->
-                                <form th:action="@{/data/import/contract}" method="post" enctype="multipart/form-data" onsubmit="return confirmImport()">
+                                <!-- Formulaire d'import unifié -->
+                                <form th:action="@{/data/import/all}" method="post" enctype="multipart/form-data" onsubmit="return validateFiles()">
                                     <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                    <div class="form-group">
-                                        <label for="file">Sélectionnez un fichier :</label>
-                                        <input type="file" class="form-control" id="file" name="file" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="mdi mdi-upload"></i> Importer les contracts
-                                    </button>
-                                </form>
 
-                                <!-- Formulaire d'import pour les commandes -->
-                                <form th:action="@{/data/import/ticket}" method="post" enctype="multipart/form-data" onsubmit="return confirmImport()">
-                                    <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                    <div class="form-group">
-                                        <label for="file">Sélectionnez un fichier :</label>
-                                        <input type="file" class="form-control" id="file" name="file" required>
+                                    <!-- Fichier Clients -->
+                                    <div class="file-card">
+                                        <h5><i class="mdi mdi-account-multiple"></i> Fichier Clients</h5>
+                                        <p class="text-muted">Format attendu : customer_email,customer_name</p>
+                                        <div class="form-group">
+                                            <label for="customerFile">Sélectionnez le fichier CSV :</label>
+                                            <input type="file" class="form-control" id="customerFile" name="customerFile" accept=".csv">
+                                        </div>
+                                        <small class="form-text text-muted">Exemple : client1@test.com,"John Doe"</small>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="mdi mdi-upload"></i> Importer les tickets
-                                    </button>
+
+                                    <!-- Fichier Budgets -->
+                                    <div class="file-card">
+                                        <h5><i class="mdi mdi-cash-multiple"></i> Fichier Budgets</h5>
+                                        <p class="text-muted">Format attendu : customer_email,Budget</p>
+                                        <div class="form-group">
+                                            <label for="budgetFile">Sélectionnez le fichier CSV :</label>
+                                            <input type="file" class="form-control" id="budgetFile" name="budgetFile" accept=".csv">
+                                        </div>
+                                        <small class="form-text text-muted">Exemple : client1@test.com,1800000</small>
+                                    </div>
+
+                                    <!-- Fichier Tickets/Leads -->
+                                    <div class="file-card">
+                                        <h5><i class="mdi mdi-ticket-account"></i> Fichier Tickets/Leads</h5>
+                                        <p class="text-muted">Format attendu : customer_email,subject_or_name,type,status,expense</p>
+                                        <div class="form-group">
+                                            <label for="ticketLeadFile">Sélectionnez le fichier CSV :</label>
+                                            <input type="file" class="form-control" id="ticketLeadFile" name="ticketLeadFile" accept=".csv">
+                                        </div>
+                                        <small class="form-text text-muted">Exemple : client1@test.com,"Projet X",lead,meeting-to-schedule,150000</small>
+                                    </div>
+
+                                    <div class="text-right mt-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="mdi mdi-upload"></i> Importer tous les fichiers
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -111,8 +156,6 @@
     <script th:src="@{/js/library/custom.min.js}"></script>
     <script th:src="@{/js/library/jquery.toast.js}"></script>
     <script th:src="@{/js/library/toastr.js}"></script>
-    <script th:src="@{/js/library/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/js/library/dataTables.responsive.min.js}"></script>
 
     <script>
         // Masquer le loader une fois la page chargée
@@ -120,15 +163,31 @@
             $('.preloader').fadeOut('slow');
         });
 
-        // Fonction de confirmation avant import
-        function confirmImport() {
+        // Validation des fichiers avant soumission
+        function validateFiles() {
+            const customerFile = $('#customerFile').val();
+            const budgetFile = $('#budgetFile').val();
+            const ticketLeadFile = $('#ticketLeadFile').val();
+            
+            if (!customerFile && !budgetFile && !ticketLeadFile) {
+                alert('Veuillez sélectionner au moins un fichier à importer');
+                return false;
+            }
+            
+            if (budgetFile && !customerFile) {
+                if (!confirm("Attention : Vous importez des budgets sans importer de clients. Voulez-vous continuer ?")) {
+                    return false;
+                }
+            }
+            
+            if (ticketLeadFile && !customerFile) {
+                if (!confirm("Attention : Vous importez des tickets/leads sans importer de clients. Voulez-vous continuer ?")) {
+                    return false;
+                }
+            }
+            
             return confirm("Êtes-vous sûr de vouloir importer les données ? Cette action est irréversible.");
         }
-
-        // Initialiser DataTable (si vous avez un tableau dans cette page)
-        $('#config-table').DataTable({
-            responsive: true
-        });
     </script>
 </body>
 

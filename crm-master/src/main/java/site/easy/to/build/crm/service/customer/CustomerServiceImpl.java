@@ -62,4 +62,9 @@ public class CustomerServiceImpl implements CustomerService {
     public long count() {
         return customerRepository.count();
     }
+
+    @Override
+    public void saveAll(List<Customer> customers){
+        customerRepository.saveAll(customers);
+    }
 }

@@ -3,6 +3,8 @@ package site.easy.to.build.crm.service.lead;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import site.easy.to.build.crm.entity.Customer;
 import site.easy.to.build.crm.entity.Depense;
 import site.easy.to.build.crm.repository.DepenseRepository;
@@ -103,18 +105,9 @@ public class LeadServiceImpl implements LeadService {
     }
     
     @Override
-    public List<Lead> getLeadsNotInDepense() {
-
-        List<Lead> allLeads = leadRepository.findAll();
-
-        List<Lead> leadsInDepense = depenseRepository.findAll().stream()
-                .map(Depense::getLead)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        return allLeads.stream()
-                .filter(lead -> !leadsInDepense.contains(lead))
-                .collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public List<Lead> findLeadsWithoutDepenses() {
+        return leadRepository.findLeadsWithoutDepenses();
     }
 
     @Override
@@ -129,5 +122,9 @@ public class LeadServiceImpl implements LeadService {
     @Override
     public void deleteById(Integer id){
         leadRepository.deleteById(id);
+    }
+    @Override
+    public List<Lead> findByCustomerCustomerId(int idcustomer){
+        return leadRepository.findByCustomerCustomerId(idcustomer);
     }
 }
